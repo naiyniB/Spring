@@ -165,4 +165,5 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", 
        }
        ```
 
-       > 在 Spring 文档中，“工厂 Bean” 指的是在 Spring 容器中配置的 Bean，它通过 [实例](https://docs.springjava.cn/spring-framework/reference/core/beans/definition.html#beans-factory-class-instance-factory-method) 或 [静态](https://docs.springjava.cn/spring-framework/reference/core/beans/definition.html#beans-factory-class-static-factory-method) 工厂方法创建对象。相比之下，`FactoryBean`（注意大小写）指的是 Spring 特定的 [`FactoryBean`](https://docs.springjava.cn/spring-framework/reference/core/beans/factory-extension.html#beans-factory-extension-factorybean) 实现类。
+       > 在 Spring 文档中，“工厂 Bean” 指的是在 Spring 容器中配置的 Bean，它通过 **实例** 或 **静态**工厂方法创建对象。相比之下，`FactoryBean`（注意大小写）指的是 Spring 特定的 FactoryBean实现类。
+
