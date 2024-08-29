@@ -140,4 +140,29 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", 
        }
        ```
 
+     - 使用其他Bean的实例方法，使用实例工厂方法实例化会调用容器中现有 bean 的非静态方法来创建新的 bean
+
+       使用此机制，请将 `class` 属性留空，并在 `factory-bean` 属性中指定当前（或父级或祖先）容器中包含要调用的实例方法的 **bean 的名称**以创建对象。使用 `factory-method` 属性设置工厂方法本身的名称
+
+       ```xml
+       <!-- 这个examples.DefaultServiceLocator 中有一个方法，返回一个实例-->
+       <bean id="serviceLocator" class="examples.DefaultServiceLocator">
+       </bean>
+       <!-- 省略class factory-bean值是要用的实例方法的bean的名字，factory-method 要用的实例方法名 -->
+       <bean id="clientService"
+       	factory-bean="serviceLocator"
+       	factory-method="createClientServiceInstance"/>
+       ```
+
+       ```java
+       public class DefaultServiceLocator {
        
+       	private static ClientService clientService = new ClientServiceImpl();
+       
+       	public ClientService createClientServiceInstance() {
+       		return clientService;
+       	}
+       }
+       ```
+
+       > 在 Spring 文档中，“工厂 Bean” 指的是在 Spring 容器中配置的 Bean，它通过 [实例](https://docs.springjava.cn/spring-framework/reference/core/beans/definition.html#beans-factory-class-instance-factory-method) 或 [静态](https://docs.springjava.cn/spring-framework/reference/core/beans/definition.html#beans-factory-class-static-factory-method) 工厂方法创建对象。相比之下，`FactoryBean`（注意大小写）指的是 Spring 特定的 [`FactoryBean`](https://docs.springjava.cn/spring-framework/reference/core/beans/factory-extension.html#beans-factory-extension-factorybean) 实现类。
